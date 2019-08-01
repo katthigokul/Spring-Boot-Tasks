@@ -20,11 +20,15 @@ public class TrackController {
         this.trackService = trackService;
     }
 
+    //Save Tracks
+
     @PostMapping("track")
     public ResponseEntity<?> saveTrack(@RequestBody Track track) {
         Track savedTrack = trackService.saveTrack(track);
         return new ResponseEntity<>(savedTrack, HttpStatus.OK);
     }
+
+    //Get Track By Id
 
     @GetMapping("track/{id}")
     public ResponseEntity<?> getTrackById(@PathVariable int id) {
@@ -34,17 +38,29 @@ public class TrackController {
 
     }
 
+    //Delete Track By Id
+
     @DeleteMapping("track/{id}")
     public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id) {
         List<Track> trackList = trackService.deleteTrackById(id);
         return new ResponseEntity<>(trackList, HttpStatus.OK);
     }
 
-    @PostMapping("track/{id}")
+    //Update Track By Id
+
+    @PatchMapping("track/{id}")
     public ResponseEntity<?> updateTrackById(@PathVariable int id) {
         System.out.println(id);
         Track updateTrack = trackService.updateTrackById(id);
         return new ResponseEntity<Track>(updateTrack, HttpStatus.OK);
 
+    }
+
+    //Get All Tracks
+
+    @GetMapping("track")
+    public ResponseEntity<?> getAllTrack() {
+        List<Track> trackList = trackService.getAllTrack();
+        return new ResponseEntity<>(trackList, HttpStatus.OK);
     }
 }

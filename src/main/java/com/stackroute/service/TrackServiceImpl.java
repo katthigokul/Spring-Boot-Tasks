@@ -10,28 +10,38 @@ import java.util.List;
 
 public class TrackServiceImpl implements TrackService {
     private TrackRepository trackRepository;
-    public TrackServiceImpl(TrackRepository trackRepository)
-    {
-        this.trackRepository=trackRepository;
+
+    public TrackServiceImpl(TrackRepository trackRepository) {
+        this.trackRepository = trackRepository;
 
     }
+
+    //Save Tracks
+
     @Override
-    public Track saveTrack(Track track)
-    {
-        Track saveTrack=trackRepository.save(track);
+    public Track saveTrack(Track track) {
+        Track saveTrack = trackRepository.save(track);
         return saveTrack;
     }
 
+    //Get Track By id
+
     @Override
     public Track getTrackById(int id) {
-        Track retrivedTrack=trackRepository.findById(id).get();
+        Track retrivedTrack = trackRepository.findById(id).get();
         return retrivedTrack;
     }
 
+// Get All Tracks
+
     @Override
-    public Track getAllTrack() {
-        return null;
+    public List<Track> getAllTrack() {
+
+        List<Track> listTrack = trackRepository.findAll();
+        return listTrack;
     }
+
+    //Delete Track By Id
 
     @Override
 
@@ -39,9 +49,12 @@ public class TrackServiceImpl implements TrackService {
         trackRepository.deleteById(id);
         return trackRepository.findAll();
     }
+
+    //Update Track By Id
+
     @Override
     public Track updateTrackById(int id) {
-        Track updateTrack= trackRepository.findById(id).get();
+        Track updateTrack = trackRepository.findById(id).get();
         return updateTrack;
     }
 
