@@ -61,5 +61,11 @@ public class TrackServiceImpl implements TrackService {
         return track;
     }
 
+    //Search Tracks By Name
 
+    @Override
+    public List<Track> searchTrackByName(String name) {
+        List<Track> foundTracksList = trackRepository.searchTrackByName(name);
+        return foundTracksList;
+    }
 }

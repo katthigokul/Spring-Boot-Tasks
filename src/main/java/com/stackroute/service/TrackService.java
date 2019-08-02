@@ -14,4 +14,8 @@ public interface TrackService {
     public List<Track> deleteTrackById(int id);
 
     public Track updateTrackById(int id, Track updatedTrack);
+
+    //Searching Tracks By Name
+
+    public List<Track> searchTrackByName(String name);
 }
