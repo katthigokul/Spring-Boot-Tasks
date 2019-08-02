@@ -4,11 +4,13 @@ import com.stackroute.domain.Track;
 import com.stackroute.exception.TrackAlreadyExistsException;
 import com.stackroute.exception.TrackNotFoundException;
 import com.stackroute.repository.TrackRepository;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Primary
 
 public class TrackServiceImpl implements TrackService {
     private TrackRepository trackRepository;
