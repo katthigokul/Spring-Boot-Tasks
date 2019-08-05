@@ -32,7 +32,6 @@ public class TrackController {
 
     @GetMapping("track/{id}")
     public ResponseEntity<?> getTrackById(@PathVariable int id) {
-        System.out.println(id);
         Track retrivedTrack = trackService.getTrackById(id);
         return new ResponseEntity<Track>(retrivedTrack, HttpStatus.OK);
 
@@ -50,7 +49,6 @@ public class TrackController {
 
     @PutMapping("track/{id}")
     public ResponseEntity<?> updateTrackById(@PathVariable int id, @RequestBody Track updatedTrack) {
-        System.out.println(id);
         Track updateTrack = trackService.updateTrackById(id, updatedTrack);
         return new ResponseEntity<Track>(updateTrack, HttpStatus.OK);
 
