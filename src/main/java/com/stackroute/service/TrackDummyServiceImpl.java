@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +16,6 @@ import java.util.Optional;
 @Profile("dummy")
 public class TrackDummyServiceImpl implements TrackService {
     private TrackRepository trackRepository;
-
 
     @Autowired
     public TrackDummyServiceImpl(TrackRepository trackRepository) {
@@ -45,14 +45,13 @@ public class TrackDummyServiceImpl implements TrackService {
 
     @Override
     public List<Track> deleteTrackById(int id) {
-        Optional<Track> trackList= trackRepository.findById(id);
+        Optional<Track> trackList = trackRepository.findById(id);
         trackRepository.deleteById(id);
         return trackRepository.findAll();
     }
 
     @Override
     public Track updateTrackById(int id, Track track) {
-
         return null;
     }
 
@@ -60,5 +59,4 @@ public class TrackDummyServiceImpl implements TrackService {
     public List<Track> searchTrackByName(String name) {
         return trackRepository.searchTrackByName(name);
     }
-
 }
