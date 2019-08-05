@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@PropertySource("track2.properties")
+@PropertySource("application-dev.properties")
 public class ApplicationListenerSeedData implements ApplicationListener<ContextRefreshedEvent> {
     private TrackRepository trackRepository;
 

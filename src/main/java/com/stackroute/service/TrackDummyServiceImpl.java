@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Profile("dummy")
+@Profile("dev")
 public class TrackDummyServiceImpl implements TrackService {
     private TrackRepository trackRepository;
 
