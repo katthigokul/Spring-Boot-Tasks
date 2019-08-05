@@ -17,7 +17,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     @Bean
     public Docket TrackApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .select()                 .apis(RequestHandlerSelectors.basePackage("com.stackroute.controller"))
+                .select().apis(RequestHandlerSelectors.basePackage("com.stackroute.controller"))
                 .paths(regex("/api/v1/.*"))
                 .build();
 

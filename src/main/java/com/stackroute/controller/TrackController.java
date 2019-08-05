@@ -86,15 +86,15 @@ public class TrackController {
     //Get All Tracks
 
     @GetMapping("track")
-    public ResponseEntity<?>getAllTrack() {
+    public ResponseEntity<?> getAllTrack() {
         ResponseEntity responseEntity;
-                try {
-                    List<Track> trackList = trackService.getAllTrack();
-                    return new ResponseEntity<>(trackList, HttpStatus.OK);
-                }catch (Exception exception){
-                    responseEntity=new ResponseEntity<>(exception.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-                return responseEntity;
+        try {
+            List<Track> trackList = trackService.getAllTrack();
+            return new ResponseEntity<>(trackList, HttpStatus.OK);
+        } catch (Exception exception) {
+            responseEntity = new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
     }
 
     //Search  Track By Name
