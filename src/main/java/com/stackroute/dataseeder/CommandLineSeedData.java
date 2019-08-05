@@ -7,7 +7,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 
-
 @Component
 public class CommandLineSeedData implements CommandLineRunner {
     private TrackRepository trackRepository;
