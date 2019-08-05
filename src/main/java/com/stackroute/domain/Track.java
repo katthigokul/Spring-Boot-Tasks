@@ -4,14 +4,14 @@ package com.stackroute.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Document(collection = "track")
 public class Track {
     @Id
     private int id;

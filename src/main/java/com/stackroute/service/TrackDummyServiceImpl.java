@@ -57,8 +57,8 @@ public class TrackDummyServiceImpl implements TrackService {
     }
 
     @Override
-    public List<Track> searchTrackByName(String name) {
-        return trackRepository.searchTrackByName(name);
+    public List<Track> findByName(String name) {
+        return trackRepository.findByName(name);
     }
 
 }

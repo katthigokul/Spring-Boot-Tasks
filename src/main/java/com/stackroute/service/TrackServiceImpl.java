@@ -93,9 +93,9 @@ public class TrackServiceImpl implements TrackService {
     //Search Tracks By Name
 
     @Override
-    public List<Track> searchTrackByName(String name) throws TrackNotFoundException {
-        if (!(trackRepository.searchTrackByName(name).isEmpty() || trackRepository.searchTrackByName(name) == null)) {
-            List<Track> foundTracksList = trackRepository.searchTrackByName(name);
+    public List<Track>findByName(String name) throws TrackNotFoundException {
+        if (!(trackRepository.findByName(name).isEmpty() || trackRepository.findByName(name) == null)) {
+            List<Track> foundTracksList = trackRepository.findByName(name);
             System.out.println(foundTracksList.size());
             System.out.println(1);
             return foundTracksList;

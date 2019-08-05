@@ -94,11 +94,11 @@ public class TrackController {
     //Search  Track By Name
 
     @GetMapping("tracks/{name}")
-    public ResponseEntity<?> searchTrackByName(@PathVariable String name)  throws TrackNotFoundException{
+    public ResponseEntity<?> findByName(@PathVariable String name)  throws TrackNotFoundException{
         ResponseEntity responseEntity;
        // try {
             System.out.println("control");
-            List<Track> foundTracksList = trackService.searchTrackByName(name);
+            List<Track> foundTracksList = trackService.findByName(name);
             return new ResponseEntity<>(foundTracksList, HttpStatus.FOUND);
         /*} catch (TrackNotFoundException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);

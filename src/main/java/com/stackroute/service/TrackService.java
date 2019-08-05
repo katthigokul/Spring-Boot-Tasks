@@ -21,5 +21,5 @@ public interface TrackService {
 
     //Searching Tracks By Name
 
-    public List<Track> searchTrackByName(String name) throws TrackNotFoundException;
+    public List<Track> findByName(String name) throws TrackNotFoundException;
 }
