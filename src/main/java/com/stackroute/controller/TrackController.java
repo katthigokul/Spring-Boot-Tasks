@@ -36,8 +36,6 @@ public class TrackController {
             responseEntity = new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
             ex.printStackTrace();
         }
-        //Track savedTrack = trackService.saveTrack(track);
-        //return new ResponseEntity<>(savedTrack, HttpStatus.OK);
         return responseEntity;
     }
 
@@ -86,15 +84,15 @@ public class TrackController {
     //Get All Tracks
 
     @GetMapping("track")
-    public ResponseEntity<?>getAllTrack() {
+    public ResponseEntity<?> getAllTrack() {
         ResponseEntity responseEntity;
-                try {
-                    List<Track> trackList = trackService.getAllTrack();
-                    return new ResponseEntity<>(trackList, HttpStatus.OK);
-                }catch (Exception exception){
-                    responseEntity=new ResponseEntity<>(exception.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-                return responseEntity;
+        try {
+            List<Track> trackList = trackService.getAllTrack();
+            return new ResponseEntity<>(trackList, HttpStatus.OK);
+        } catch (Exception exception) {
+            responseEntity = new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
     }
 
     //Search  Track By Name
@@ -109,8 +107,6 @@ public class TrackController {
         } catch (TrackNotFoundException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
         }
-
-
     }
 
 }
