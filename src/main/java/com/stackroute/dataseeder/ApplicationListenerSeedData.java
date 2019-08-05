@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@PropertySource("classpath:application.properties")
+@PropertySource("track2.properties")
 public class ApplicationListenerSeedData implements ApplicationListener<ContextRefreshedEvent> {
     private TrackRepository trackRepository;
 
@@ -27,8 +27,12 @@ public class ApplicationListenerSeedData implements ApplicationListener<ContextR
     private Environment environment;
 
     /* To Get  the Property Values*/
-    @Value("${id}")
+    @Value("${track2.id}")
     int id;
+    @Value(("${track2.name"))
+    String name;
+    @Value(("${track2.comments"))
+    String comments;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -46,7 +50,7 @@ public class ApplicationListenerSeedData implements ApplicationListener<ContextR
 
     }*/
         try {
-            trackRepository.save(new Track(id, environment.getProperty("name"),environment.getProperty("comments")));
+            trackRepository.save(new Track(id, environment.getProperty("name"), environment.getProperty("comments")));
         } catch (Exception exception) {
             exception.printStackTrace();
         }
