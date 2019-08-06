@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Profile("prod")
-@Service
+@Service("TrackService")
 
 
 public class TrackServiceImpl implements TrackService {
@@ -26,14 +26,16 @@ public class TrackServiceImpl implements TrackService {
 
     @Override
     public Track saveTrack(Track track) throws TrackAlreadyExistsException {
+        Track saveTrack=null;
         if (trackRepository.existsById(track.getId())) {
             throw new TrackAlreadyExistsException("Track already Exists");
+        }else {
+            saveTrack = trackRepository.save(track);
+            if (saveTrack == null) {
+                throw new TrackAlreadyExistsException("Track is null");
+            }
+            return saveTrack;
         }
-        Track saveTrack = trackRepository.save(track);
-        if (saveTrack == null) {
-            throw new TrackAlreadyExistsException("Track already Exists");
-        }
-        return saveTrack;
     }
 
     //Get Track By id

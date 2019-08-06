@@ -13,6 +13,6 @@ public class GlobalException extends ResponseEntityExceptionHandler {
             = {TrackAlreadyExistsException.class, TrackNotFoundException.class})
     protected ResponseEntity<Object> handleConflict(
             Exception ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 }
