@@ -23,7 +23,7 @@ public class TrackController {
         this.trackService = trackService;
     }
 
-    //Save Tracks
+    //method to Save Tracks in Database
 
     @PostMapping("track")
     public ResponseEntity<?> saveTrack(@RequestBody Track track) throws TrackAlreadyExistsException {
@@ -35,7 +35,7 @@ public class TrackController {
         return responseEntity;
     }
 
-    //Get Track By Id
+    //method to Get Track By Id from Database
 
     @GetMapping("track/{id}")
     public ResponseEntity<?> getTrackById(@PathVariable int id) throws TrackNotFoundException {
@@ -49,7 +49,7 @@ public class TrackController {
 
     }
 
-    //Delete Track By Id
+    //Method to Delete Track By Id from Database
 
     @DeleteMapping("track/{id}")
     public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id) throws TrackNotFoundException {
@@ -62,7 +62,7 @@ public class TrackController {
         }*/
     }
 
-    //Update Track By Id
+    //Method to Update Track By Id in Database
 
     @PutMapping("track/{id}")
     public ResponseEntity<?> updateTrackById(@PathVariable int id, @RequestBody Track updatedTrack) throws TrackNotFoundException {
@@ -77,7 +77,7 @@ public class TrackController {
 
     }
 
-    //Get All Tracks
+    //Method to Get All Tracks from Database
 
     @GetMapping("track")
     public ResponseEntity<?> getAllTrack() {
@@ -91,7 +91,7 @@ public class TrackController {
         return responseEntity;*/
     }
 
-    //Search  Track By Name
+    //Method  to Search  Track By Name in Database
 
     @GetMapping("tracks/{name}")
     public ResponseEntity<?> searchTrackByName(@PathVariable String name) throws TrackNotFoundException {
