@@ -36,11 +36,13 @@ public class TrackRepositoryTest {
 
     @After
     public void tearDown() {
+
+        track=null;
         trackRepository.deleteAll();
     }
 
     @Test
-    public void testsaveTrack() {
+    public void  givenTrackShouldReturnsaveTrack() {
         trackRepository.save(track);
         Track fetchtrack = trackRepository.findById(track.getId()).get();
         Assert.assertEquals(1, fetchtrack.getId());
@@ -48,7 +50,7 @@ public class TrackRepositoryTest {
     }
 
     @Test
-    public void testSavetrackFailure() {
+    public void  givenTrackShouldReturnSavetrackFailure() {
         Track testtrack = new Track(1, "Love me", "Love Song");
         trackRepository.save(track);
         Track fetchtrack = trackRepository.findById(track.getId()).get();
@@ -56,15 +58,13 @@ public class TrackRepositoryTest {
     }
 
     @Test
-    public void testGetAlltrack() {
+    public void givenTrackShouldReturnGetAlltrack() {
         Track u = new Track(1, "Baby", "Baby Song");
         Track u1 = new Track(3, "Sorry", "Sorry Song");
         trackRepository.save(u);
         trackRepository.save(u1);
-
         List<Track> list = trackRepository.findAll();
         Assert.assertEquals("Baby", list.get(0).getName());
-
     }
 
 }

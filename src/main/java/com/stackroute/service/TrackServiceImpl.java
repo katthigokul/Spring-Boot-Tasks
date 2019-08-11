@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Profile("prod")
 @Service("TrackService")
 
@@ -22,14 +23,14 @@ public class TrackServiceImpl implements TrackService {
 
     }
 
-    //Save Tracks
+    //Method to Save Tracks
 
     @Override
     public Track saveTrack(Track track) throws TrackAlreadyExistsException {
-        Track saveTrack=null;
+        Track saveTrack = null;
         if (trackRepository.existsById(track.getId())) {
             throw new TrackAlreadyExistsException("Track already Exists");
-        }else {
+        } else {
             saveTrack = trackRepository.save(track);
             if (saveTrack == null) {
                 throw new TrackAlreadyExistsException("Track is null");
@@ -38,7 +39,7 @@ public class TrackServiceImpl implements TrackService {
         }
     }
 
-    //Get Track By id
+    //Method Get Track By id
 
     @Override
     public Track getTrackById(int id) throws TrackNotFoundException {
@@ -52,7 +53,7 @@ public class TrackServiceImpl implements TrackService {
 
     }
 
-// Get All Tracks
+// Method to Get All Tracks
 
     @Override
     public List<Track> getAllTrack() {
@@ -62,7 +63,7 @@ public class TrackServiceImpl implements TrackService {
     }
 
 
-    //Delete Track By Id
+    //Method to Delete Track By Id
 
     @Override
 
@@ -76,7 +77,7 @@ public class TrackServiceImpl implements TrackService {
         }
     }
 
-    //Update Track By Id
+    //Method to Update Track By Id
 
     @Override
     public Track updateTrackById(int id, Track updatedTrack) throws TrackNotFoundException {
@@ -92,10 +93,10 @@ public class TrackServiceImpl implements TrackService {
         }
     }
 
-    //Search Tracks By Name
+    //Method to Search Tracks By Name
 
     @Override
-    public List<Track>findByName(String name) throws TrackNotFoundException {
+    public List<Track> findByName(String name) throws TrackNotFoundException {
         if (!(trackRepository.findByName(name).isEmpty() || trackRepository.findByName(name) == null)) {
             List<Track> foundTracksList = trackRepository.findByName(name);
             System.out.println(foundTracksList.size());

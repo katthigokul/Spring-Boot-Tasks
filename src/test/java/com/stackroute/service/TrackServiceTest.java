@@ -4,6 +4,7 @@ import com.stackroute.domain.Track;
 import com.stackroute.exception.TrackAlreadyExistsException;
 import com.stackroute.exception.TrackNotFoundException;
 import com.stackroute.repository.TrackRepository;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import org.mockito.internal.verification.Times;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 
 import static org.junit.Assert.*;
@@ -22,13 +24,13 @@ import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class TrackServiceTest {
-    Track track;
+    private Track track;
     //Create a mock for TrackRepository
     @Mock
-    TrackRepository trackRepository;
+    private TrackRepository trackRepository;
     //Inject the mocks as dependencies into TrackServiceImpl
     @InjectMocks
-    TrackServiceImpl trackService;
+    private TrackServiceImpl trackService;
     List<Track> list = null;
 
     @Before
@@ -43,8 +45,14 @@ public class TrackServiceTest {
         list.add(track);
     }
 
+    @After
+    public void tearDown() {
+        list = null;
+        track = null;
+    }
+
     @Test
-    public void saveTrackSuccess() throws TrackAlreadyExistsException {
+    public void givenTrackShouldsaveTrackSuccess() throws TrackAlreadyExistsException {
         when(trackRepository.save((Track) any())).thenReturn(track);
         Track saveTrack = trackRepository.save(track);
         Assert.assertEquals(track, saveTrack);
@@ -53,20 +61,36 @@ public class TrackServiceTest {
     }
 
     @Test(expected = TrackAlreadyExistsException.class)
-    public void saveTrackTestFailure() throws TrackAlreadyExistsException {
+    public void givenTrackShouldsaveTrackTestFailure() throws TrackAlreadyExistsException {
         when(trackRepository.existsById(track.getId())).thenReturn(true);
         Track savedTrack = trackService.saveTrack(track);
 //        Assert.assertEquals(track,savedTrack);
+
     }
 
     @Test
-    public void getAllTrack() {
+    public void givenTrackShouldRetunrgetAllTrack() {
 
         trackRepository.save(track);
         //stubbing the mock to return specific data
         when(trackRepository.findAll()).thenReturn(list);
         List<Track> tracklist = trackService.getAllTrack();
         Assert.assertEquals(list, tracklist);
+        verify(trackRepository, times(1)).getAllTrack(track);
+    }
+
+    @Test
+    public void givenIdShouldReturnDeletedTrack() throws TrackNotFoundException {
+        when(trackRepository.existsById(track.getTrackById())).thenReturn(true);
+        when(trackRepository.findById(track.getTrackById())).thenReturn(Optional.of(track));
+        Track savedTrack = trackService.deleteTrackById(track.getTrackId());
+        assertEquals(track, savedTrack);
+    }
+
+    @Test(expected = TrackNotFoundException.class)
+    public void givenIdToUpdateShouldReturnTrackNotFoundException() throws TrackNotFoundException {
+        Track resultTrack = trackService.getTrackById(track.getTrackById());
+        trackService.updateTrackById(track.getTrackById(), track);
     }
 
 }

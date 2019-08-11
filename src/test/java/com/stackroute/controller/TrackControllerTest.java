@@ -5,6 +5,7 @@ import com.stackroute.domain.Track;
 import com.stackroute.exception.GlobalException;
 import com.stackroute.exception.TrackAlreadyExistsException;
 import com.stackroute.service.TrackService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,8 +56,14 @@ public class TrackControllerTest {
         list.add(track);
     }
 
+    @After
+    public void tearDown() {
+        list = null;
+        track = null;
+    }
+
     @Test
-    public void saveTrack() throws Exception {
+    public void givenTrackShouldReturnsaveTrack() throws Exception {
         when(trackService.saveTrack(any())).thenReturn(track);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/track")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
@@ -67,7 +74,7 @@ public class TrackControllerTest {
     }
 
     @Test
-    public void saveTrackFailure() throws Exception {
+    public void givenTrackShouldReturnsaveTrackFailure() throws Exception {
         when(trackService.saveTrack(any())).thenThrow(TrackAlreadyExistsException.class);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/track")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
@@ -76,7 +83,7 @@ public class TrackControllerTest {
     }
 
     @Test
-    public void getAllTrack() throws Exception {
+    public void givenTrackShouldReturngetAllTrack() throws Exception {
         when(trackService.getAllTrack()).thenReturn(list);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/track")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
@@ -93,6 +100,5 @@ public class TrackControllerTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
 }
