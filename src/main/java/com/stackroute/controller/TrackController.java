@@ -24,7 +24,7 @@ public class TrackController {
         this.trackService = trackService;
     }
 
-    //Save Tracks
+    //Method to Save Tracks in Database
 
     @PostMapping("track")
     public ResponseEntity<?> saveTrack(@RequestBody Track track) {
@@ -36,12 +36,10 @@ public class TrackController {
             responseEntity = new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
             ex.printStackTrace();
         }
-        //Track savedTrack = trackService.saveTrack(track);
-        //return new ResponseEntity<>(savedTrack, HttpStatus.OK);
         return responseEntity;
     }
 
-    //Get Track By Id
+    //Method to Get Track By Id from datbase
 
     @GetMapping("track/{id}")
     public ResponseEntity<?> getTrackById(@PathVariable int id) {
@@ -55,7 +53,7 @@ public class TrackController {
 
     }
 
-    //Delete Track By Id
+    //Method to Delete Track By Id from database
 
     @DeleteMapping("track/{id}")
     public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id) {
@@ -68,7 +66,7 @@ public class TrackController {
         }
     }
 
-    //Update Track By Id
+    //Method to Update Track By Id from database
 
     @PutMapping("track/{id}")
     public ResponseEntity<?> updateTrackById(@PathVariable int id, @RequestBody Track updatedTrack) {
@@ -83,9 +81,9 @@ public class TrackController {
 
     }
 
-    //Get All Tracks
+    //method to Get All Tracks from database
 
-    @GetMapping("track")
+    @GetMapping("tracks")
     public ResponseEntity<?> getAllTrack() {
         ResponseEntity responseEntity;
         try {
@@ -97,7 +95,7 @@ public class TrackController {
         return responseEntity;
     }
 
-    //Search  Track By Name
+    //Method to Search  Track By Name from database
 
     @GetMapping("tracks/{name}")
     public ResponseEntity<?> searchTrackByName(@PathVariable String name) {
@@ -109,8 +107,7 @@ public class TrackController {
         } catch (TrackNotFoundException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
         }
-
-
+        
     }
 
 }
