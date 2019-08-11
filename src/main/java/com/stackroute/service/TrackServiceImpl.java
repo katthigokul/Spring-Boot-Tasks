@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Profile("prod")
 @Service
 
@@ -22,7 +23,7 @@ public class TrackServiceImpl implements TrackService {
 
     }
 
-    //Save Tracks
+    //Method to Save Tracks in database
 
     @Override
     public Track saveTrack(Track track) throws TrackAlreadyExistsException {
@@ -36,7 +37,7 @@ public class TrackServiceImpl implements TrackService {
         return saveTrack;
     }
 
-    //Get Track By id
+    //method to Get Track By id from database
 
     @Override
     public Track getTrackById(int id) throws TrackNotFoundException {
@@ -50,17 +51,17 @@ public class TrackServiceImpl implements TrackService {
 
     }
 
-// Get All Tracks
+// Method to Get All Tracks from database
 
     @Override
-    public List<Track> getAllTrack() {
+    public List<Track> getAllTracks() {
 
         List<Track> listTrack = trackRepository.findAll();
         return listTrack;
     }
 
 
-    //Delete Track By Id
+    //Method to Delete Track By Id from database
 
     @Override
 
@@ -74,7 +75,7 @@ public class TrackServiceImpl implements TrackService {
         }
     }
 
-    //Update Track By Id
+    //Method to Update Track By Id in Database
 
     @Override
     public Track updateTrackById(int id, Track updatedTrack) throws TrackNotFoundException {
@@ -90,10 +91,10 @@ public class TrackServiceImpl implements TrackService {
         }
     }
 
-    //Search Tracks By Name
+    //Method to Search Tracks By Name in Database
 
     @Override
-    public List<Track>findByName(String name) throws TrackNotFoundException {
+    public List<Track> findByName(String name) throws TrackNotFoundException {
         if (!(trackRepository.findByName(name).isEmpty() || trackRepository.findByName(name) == null)) {
             List<Track> foundTracksList = trackRepository.findByName(name);
             System.out.println(foundTracksList.size());

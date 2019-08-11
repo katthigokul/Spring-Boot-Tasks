@@ -13,7 +13,7 @@ public interface TrackService {
 
     public Track getTrackById(int id) throws TrackNotFoundException;
 
-    public List<Track> getAllTrack();
+    public List<Track> getAllTracks();
 
     public List<Track> deleteTrackById(int id) throws TrackNotFoundException;
 
