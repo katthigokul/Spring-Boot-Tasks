@@ -81,7 +81,7 @@ public class TrackServiceTest {
 
     @Test
     public void givenIdShouldReturnDeletedTrack() throws TrackNotFoundException {
-        when(trackRepository.existsById(track.getTrackById())).thenReturn(true);
+        when(trackRepository.existsById(track.deleteTrackById())).thenReturn(true);
         when(trackRepository.findById(track.getTrackById())).thenReturn(Optional.of(track));
         Track savedTrack = trackService.deleteTrackById(track.getTrackId());
         assertEquals(track, savedTrack);

@@ -5,6 +5,7 @@ import com.stackroute.domain.Track;
 import com.stackroute.exception.GlobalException;
 import com.stackroute.exception.TrackAlreadyExistsException;
 import com.stackroute.exception.TrackNotFoundException;
+import com.stackroute.repository.TrackRepository;
 import com.stackroute.service.TrackService;
 import org.junit.After;
 import org.junit.Before;
@@ -32,6 +33,7 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest
@@ -45,6 +47,7 @@ public class TrackControllerTest {
     private TrackController trackController;
 
     private List<Track> list = null;
+    private TrackRepository trackRepository;
 
     @Before
     public void setUp() {
@@ -73,6 +76,7 @@ public class TrackControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andDo(MockMvcResultHandlers.print());
+        verify(trackRepository, times(1)).getAllTrack(track);
     }
 
     @Test
@@ -91,6 +95,7 @@ public class TrackControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
+        verify(trackRepository, times(1)).getAllTrack(track);
     }
 
     //    Test for updateTrack()
@@ -101,6 +106,7 @@ public class TrackControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
+        verify(trackRepository, times(1)).getAllTrack(track);
 
     }
 
