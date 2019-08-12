@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.domain.Track;
 import com.stackroute.exception.GlobalException;
 import com.stackroute.exception.TrackAlreadyExistsException;
+import com.stackroute.exception.TrackNotFoundException;
 import com.stackroute.service.TrackService;
 import org.junit.After;
 import org.junit.Before;
@@ -24,9 +25,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static org.graalvm.compiler.nodeinfo.Verbosity.Id;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -69,8 +73,6 @@ public class TrackControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andDo(MockMvcResultHandlers.print());
-
-
     }
 
     @Test
@@ -89,7 +91,47 @@ public class TrackControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
+    }
 
+    //    Test for updateTrack()
+    @Test
+    public void givenTrackShouldReturnUpdatedTrack() throws Exception {
+        when(trackService.updateTrackById(anyInt(id))).thenReturn(track);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/track")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+    }
+
+    //    Test for updateTrackFailure
+    @Test
+    public void givenTrackShouldReturnTrackNotFoundException() throws Exception {
+        when(trackService.updateTrackById(anyInt(id))).thenThrow(TrackNotFoundException.class);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/track")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    //    Test for deleteTrack()
+    @Test
+    public void givenTrackIdShouldDeleteTrackAndReturnDeletedTrack() throws Exception {
+        when(trackService.deleteTrackById(anyInt())).thenReturn(Optional.of(track));
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/track?id=20")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isMovedPermanently())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    //    Test for deleteTrackFailure
+    @Test
+    public void givenTrackIdShouldReturnTrackNotFoundException() throws Exception {
+        when(trackService.deleteTrackById(anyInt())).thenThrow(TrackNotFoundException.class);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/track/116")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andDo(MockMvcResultHandlers.print());
     }
 
 
