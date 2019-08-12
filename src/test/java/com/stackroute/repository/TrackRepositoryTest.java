@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -37,12 +38,12 @@ public class TrackRepositoryTest {
     @After
     public void tearDown() {
 
-        track=null;
+        track = null;
         trackRepository.deleteAll();
     }
 
     @Test
-    public void  givenTrackShouldReturnsaveTrack() {
+    public void givenTrackShouldReturnsaveTrack() {
         trackRepository.save(track);
         Track fetchtrack = trackRepository.findById(track.getId()).get();
         Assert.assertEquals(1, fetchtrack.getId());
@@ -50,7 +51,7 @@ public class TrackRepositoryTest {
     }
 
     @Test
-    public void  givenTrackShouldReturnSavetrackFailure() {
+    public void givenTrackShouldReturnSavetrackFailure() {
         Track testtrack = new Track(1, "Love me", "Love Song");
         trackRepository.save(track);
         Track fetchtrack = trackRepository.findById(track.getId()).get();
@@ -65,6 +66,29 @@ public class TrackRepositoryTest {
         trackRepository.save(u1);
         List<Track> list = trackRepository.findAll();
         Assert.assertEquals("Baby", list.get(0).getName());
+    }
+
+    //Test for delete Track
+    @Test
+    public void GivenTrackIdShouldDeletetrackAndReturnNull() {
+        trackRepository.save(track);
+        trackRepository.delete(track);
+        Optional<Track> expected = Optional.empty();
+        Assert.assertEquals(expected, trackRepository.findById(track.getTrackById()));
+    }
+
+    //Test for update Track
+
+    @Test
+    public void GivenTrackWithSameIdShouldUpdatedTrackOfThatId() {
+        trackRepository.save(track);
+        Track updatedTrack = trackRepository.findById(trackToUpdate.getTrackId()).get();
+        updatedTrack.setName(trackToUpdate.getTrackName());
+        updatedTrack.setComments(trackToUpdate.getComments());
+        Track expected = trackToUpdate;
+        Track foundTrack = trackRepository.save(trackToUpdate);
+
+        Assert.assertEquals(expected, foundTrack);
     }
 
 }
