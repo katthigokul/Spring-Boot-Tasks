@@ -20,6 +20,7 @@ import java.util.Properties;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
@@ -79,18 +80,41 @@ public class TrackServiceTest {
         verify(trackRepository, times(1)).getAllTrack(track);
     }
 
+    //    Test -DeleteTrack
     @Test
     public void givenIdShouldReturnDeletedTrack() throws TrackNotFoundException {
-        when(trackRepository.existsById(track.deleteTrackById())).thenReturn(true);
+        when(trackRepository.existsById(track.getTrackById())).thenReturn(true);
         when(trackRepository.findById(track.getTrackById())).thenReturn(Optional.of(track));
         Track savedTrack = trackService.deleteTrackById(track.getTrackId());
         assertEquals(track, savedTrack);
+        verify(trackRepository, times(1)).getAllTrack(track);
     }
+
+    // Test delete Track Failure
 
     @Test(expected = TrackNotFoundException.class)
     public void givenIdToUpdateShouldReturnTrackNotFoundException() throws TrackNotFoundException {
         Track resultTrack = trackService.getTrackById(track.getTrackById());
         trackService.updateTrackById(track.getTrackById(), track);
+    }
+
+    //    Test -updateTrack
+    @Test
+    public void givenIdShouldReturnUpdatedTrack() throws TrackNotFoundException {
+        when(trackRepository.existsById(track.getTrackId())).thenReturn(true);
+        when(trackRepository.findById(track.getTrackId())).thenReturn(Optional.of(track));
+        Track savedTrack = trackService.deleteTrackById(track.getTrackId()).get();
+        Assert.assertEquals(track, savedTrack);
+        verify(trackRepository, times(1)).getAllTrack(track);
+
+    }
+
+    //    Test updateTrackFailure
+    @Test(expected = Exception.class)
+    public void givenTrackIdshouldReturnTheServerException() throws TrackAlreadyExistsException {
+        when(trackRepository.existsById(anyInt())).thenReturn(true);
+        when(trackRepository.findById(any())).thenThrow(Exception.class);
+        trackService.updateTrackById(track);
     }
 
 }
