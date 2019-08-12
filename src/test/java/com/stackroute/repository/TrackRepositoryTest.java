@@ -23,8 +23,9 @@ public class TrackRepositoryTest {
 
 
     @Autowired
-    TrackRepository trackRepository;
-    Track track;
+    private TrackRepository trackRepository;
+    private Track track;
+    private Track trackToUpdate;
 
     @Before
     public void setUp() {
@@ -82,8 +83,8 @@ public class TrackRepositoryTest {
     @Test
     public void GivenTrackWithSameIdShouldUpdatedTrackOfThatId() {
         trackRepository.save(track);
-        Track updatedTrack = trackRepository.findById(trackToUpdate.getTrackId()).get();
-        updatedTrack.setName(trackToUpdate.getTrackName());
+        Track updatedTrack = trackRepository.findById(trackToUpdate.getTrackById()).get();
+        updatedTrack.setName(trackToUpdate.getTrackByName());
         updatedTrack.setComments(trackToUpdate.getComments());
         Track expected = trackToUpdate;
         Track foundTrack = trackRepository.save(trackToUpdate);
