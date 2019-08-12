@@ -25,7 +25,7 @@ public class TrackController {
     @PostMapping("track")
     public ResponseEntity<?> saveTrack(@RequestBody Track track) {
         Track savedTrack = trackService.saveTrack(track);
-        return new ResponseEntity<>(savedTrack, HttpStatus.OK);
+        return new ResponseEntity<>(savedTrack, HttpStatus.CREATED);
     }
 
     //Method to Get Track By Id from database
@@ -33,7 +33,7 @@ public class TrackController {
     @GetMapping("track/{id}")
     public ResponseEntity<?> getTrackById(@PathVariable int id) {
         Track retrivedTrack = trackService.getTrackById(id);
-        return new ResponseEntity<Track>(retrivedTrack, HttpStatus.OK);
+        return new ResponseEntity<Track>(retrivedTrack, HttpStatus.FOUND);
 
     }
 
@@ -59,6 +59,6 @@ public class TrackController {
     @GetMapping("tracks")
     public ResponseEntity<?> getAllTrack() {
         List<Track> trackList = trackService.getAllTracks();
-        return new ResponseEntity<>(trackList, HttpStatus.OK);
+        return new ResponseEntity<>(trackList, HttpStatus.FOUND);
     }
 }
