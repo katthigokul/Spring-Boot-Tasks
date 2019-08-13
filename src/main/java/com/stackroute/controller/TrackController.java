@@ -27,7 +27,7 @@ public class TrackController {
     //Method to Save Tracks
 
     @PostMapping("track")
-    public ResponseEntity<?> saveTrack(@RequestBody Track track) throws TrackAlreadyExistsException {
+    public ResponseEntity<?> saveTrack(@RequestBody Track track) throws Exception {
         ResponseEntity responseEntity;
         trackService.saveTrack(track);
         responseEntity = new ResponseEntity<String>("Track Successfully Created", HttpStatus.CREATED);
@@ -37,16 +37,16 @@ public class TrackController {
     //Method to Get Track By Id
 
     @GetMapping("track/{id}")
-    public ResponseEntity<?> getTrackById(@PathVariable int id) throws TrackNotFoundException {
+    public ResponseEntity<?> getTrackById(@PathVariable int id) throws Exception {
         ResponseEntity responseEntity;
         Track retrievedTrack = trackService.getTrackById(id);
-        return new ResponseEntity(retrievedTrack, HttpStatus.OK);
+        return new ResponseEntity(retrievedTrack, HttpStatus.FOUND);
     }
 
     //Method Delete Track By Id
 
     @DeleteMapping("track/{id}")
-    public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id) throws TrackNotFoundException {
+    public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id) throws Exception {
         ResponseEntity responseEntity;
         List<Track> trackList = trackService.deleteTrackById(id);
         return new ResponseEntity<>(trackList, HttpStatus.OK);
@@ -55,7 +55,7 @@ public class TrackController {
     //Method Update Track By Id
 
     @PutMapping("track/{id}")
-    public ResponseEntity<?> updateTrackById(@PathVariable int id, @RequestBody Track updatedTrack) throws TrackNotFoundException {
+    public ResponseEntity<?> updateTrackById(@PathVariable int id, @RequestBody Track updatedTrack) throws Exception {
         ResponseEntity responseEntity;
         System.out.println(id);
         Track updateTrack = trackService.updateTrackById(id, updatedTrack);
@@ -68,12 +68,12 @@ public class TrackController {
     public ResponseEntity<?> getAllTrack() {
         ResponseEntity responseEntity;
         List<Track> trackList = trackService.getAllTrack();
-        return new ResponseEntity<>(trackList, HttpStatus.OK);
+        return new ResponseEntity<>(trackList, HttpStatus.FOUND);
     }
 
     //Method to Get Tracks ByName
     @GetMapping("tracks/{name}")
-    public ResponseEntity<?> findByName(@PathVariable String name) throws TrackNotFoundException {
+    public ResponseEntity<?> findByName(@PathVariable String name) throws Exception {
         ResponseEntity responseEntity;
         System.out.println("control");
         List<Track> foundTracksList = trackService.findByName(name);
