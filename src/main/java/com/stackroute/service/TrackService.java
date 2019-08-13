@@ -9,17 +9,17 @@ import java.util.List;
 
 
 public interface TrackService {
-    public Track saveTrack(Track track) throws TrackAlreadyExistsException;
+    public Track saveTrack(Track track) throws Exception;
 
-    public Track getTrackById(int id) throws TrackNotFoundException;
+    public Track getTrackById(int id) throws Exception;
 
-    public List<Track> getAllTrack();
+    public List<Track> getAllTrack() throws  Exception;
 
-    public List<Track> deleteTrackById(int id) throws TrackNotFoundException;
+    public List<Track> deleteTrackById(int id) throws Exception;
 
-    public Track updateTrackById(int id, Track updatedTrack) throws  TrackNotFoundException;
+    public Track updateTrackById(int id, Track updatedTrack) throws  Exception;
 
     //Searching Tracks By Name
 
-    public List<Track> findByName(String name) throws TrackNotFoundException;
+    public List<Track> findByName(String name) throws Exception;
 }

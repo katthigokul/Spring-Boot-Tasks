@@ -65,7 +65,7 @@ public class TrackController {
     //Method to Get All Tracks
 
     @GetMapping("tracks")
-    public ResponseEntity<?> getAllTrack() {
+    public ResponseEntity<?> getAllTrack()  throws  Exception{
         ResponseEntity responseEntity;
         List<Track> trackList = trackService.getAllTrack();
         return new ResponseEntity<>(trackList, HttpStatus.FOUND);

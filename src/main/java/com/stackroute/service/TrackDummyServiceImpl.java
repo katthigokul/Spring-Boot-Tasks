@@ -23,7 +23,7 @@ public class TrackDummyServiceImpl implements TrackService {
     }
 
     @Override
-    public Track getTrackById(int id) throws TrackNotFoundException {
+    public Track getTrackById(int id) throws Exception {
         if (!trackRepository.existsById(id)) {
             throw new TrackNotFoundException("Track Not Found");
         }
@@ -31,7 +31,7 @@ public class TrackDummyServiceImpl implements TrackService {
     }
 
     @Override
-    public Track saveTrack(Track track) throws TrackAlreadyExistsException {
+    public Track saveTrack(Track track) throws Exception {
         if (trackRepository.existsById(track.getId())) {
             throw new TrackAlreadyExistsException("Track Already There");
         }
@@ -39,25 +39,25 @@ public class TrackDummyServiceImpl implements TrackService {
     }
 
     @Override
-    public List<Track> getAllTrack() {
+    public List<Track> getAllTrack() throws  Exception {
         return trackRepository.findAll();
     }
 
     @Override
-    public List<Track> deleteTrackById(int id) {
+    public List<Track> deleteTrackById(int id)  throws  Exception{
         Optional<Track> trackList= trackRepository.findById(id);
         trackRepository.deleteById(id);
         return trackRepository.findAll();
     }
 
     @Override
-    public Track updateTrackById(int id, Track track) {
+    public Track updateTrackById(int id, Track track) throws  Exception {
 
         return null;
     }
 
     @Override
-    public List<Track> findByName(String name) {
+    public List<Track> findByName(String name) throws  Exception {
         return trackRepository.findByName(name);
     }
 
