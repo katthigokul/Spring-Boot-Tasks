@@ -23,7 +23,7 @@ public class TrackController {
     //Method to Save Tracks in database
 
     @PostMapping("track")
-    public ResponseEntity<?> saveTrack(@RequestBody Track track) {
+    public ResponseEntity<?> saveTrack(@RequestBody Track track) throws  Exception{
         Track savedTrack = trackService.saveTrack(track);
         return new ResponseEntity<>(savedTrack, HttpStatus.CREATED);
     }
@@ -31,7 +31,7 @@ public class TrackController {
     //Method to Get Track By Id from database
 
     @GetMapping("track/{id}")
-    public ResponseEntity<?> getTrackById(@PathVariable int id) {
+    public ResponseEntity<?> getTrackById(@PathVariable int id) throws  Exception {
         Track retrivedTrack = trackService.getTrackById(id);
         return new ResponseEntity<Track>(retrivedTrack, HttpStatus.FOUND);
 
@@ -40,7 +40,7 @@ public class TrackController {
     //Method to Delete Track By Id from database
 
     @DeleteMapping("track/{id}")
-    public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id) {
+    public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id)throws Exception {
         List<Track> trackList = trackService.deleteTrackById(id);
         return new ResponseEntity<>(trackList, HttpStatus.OK);
     }
@@ -57,7 +57,7 @@ public class TrackController {
     //Method to Get All Tracks from database
 
     @GetMapping("tracks")
-    public ResponseEntity<?> getAllTrack() {
+    public ResponseEntity<?> getAllTracks()  throws  Exception{
         List<Track> trackList = trackService.getAllTracks();
         return new ResponseEntity<>(trackList, HttpStatus.FOUND);
     }
